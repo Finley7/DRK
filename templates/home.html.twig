@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="category">
+                <div class="title">{{ 'Chat'|trans }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8">
+            {% for category in categories %}
+                <div class="category">
+                    <div class="title">
+                        <a href="{{ path('category_index', {categoryName: category.slug}) }}">{{ category.name }}</a>
+                    </div>
+                    <div class="forum-items">
+                        {% for forum in category.forums %}
+                            <div class="forum">
+                                <div class="row">
+                                    {#                            <div class="col-lg-2 forum-icon hidden-xs visible-sm visible-lg visible-md">#}
+                                    {#                                <i class="fa fa-comments"></i>#}
+                                    {#                            </div>#}
+                                    <div class="col-lg-8 forum-title-description">
+                                        <div class="forum-title"><a href="{{ path('forum_index', {categoryName: forum.category.slug, forumName: forum.slug}) }}">{{ forum.name }}</a></div>
+                                        <div class="forum-description">{{ forum.description }}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 last-thread">
+                                        {% if forum.latestThread != null %}
+                                            <a href="#">{{ forum.latestThread.title }}</a>
+                                            {{ 'by'|trans }}
+                                            {% if forum.latestThread.replies|length > 0 %}
+                                                <a style="color:{{ forum.latestThread.lastReply.author.primaryRole.colorCode }}"
+                                                   href="">{{ forum.latestThread.lastReply.author.name }}</a> {{ forum.latestThread.lastReply.created|ago }}
+                                            {% else %}
+                                                <a style="color:{{ forum.latestThread.author.primaryRole.colorCode }}"
+                                                   href="">{{ forum.latestThread.author.name }}</a>
+                                                {{ forum.latestThread.created|ago }}
+                                            {% endif %}
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-lg-4">
+            <div class="category">
+                <div class="title">{{ 'Latest messages'|trans }}</div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+{% endblock %}

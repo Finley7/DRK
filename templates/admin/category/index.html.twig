@@ -1,0 +1,60 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Category index{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+
+            <legend>{{ 'Category management'|trans }} <a class="btn btn-success pull-right"
+                                           href="{{ path('admin_category_new') }}"><i
+                            class="fa fa-plus"></i> {{ 'Add category'|trans }}</a></legend>
+{#            <small class="help-text">{{ 'Here you can manage your categories or sections that forums will be added to'|trans }}</small>#}
+            <hr>
+
+
+            {% for category in categories %}
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">{{ category.name }}</div>
+                        <div class="card-options">
+                            <a href="{{ path('admin_forum_add', {category: category.id}) }}"
+                               class="btn btn-success btn-sm mr-2"><i class="fa fa-plus"></i> {{ 'New forum'|trans }}</a>
+                            <a href="{{ path('admin_category_edit', {id: category.id}) }}"
+                               class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> {{ 'Edit category'|trans }}</a>
+                            <a href="" class="btn btn-danger btn-sm ml-2"><i
+                                        class="fa fa-trash"></i> {{ 'Delete category'|trans }}</a>
+                        </div>
+                    </div>
+                    <table class="table data-table table-hover table-outline table-vcenter card-table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>{{ 'Name'|trans }}</th>
+                            <th>{{ 'Description'|trans }}</th>
+                            <th>{{ 'Minimum role'|trans }}</th>
+                            <th>{{ 'Subforum of' }}</th>
+                            <th>{{ 'Actions' }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for forum in category.forums %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ forum.name }}</td>
+                                <td>{{ forum.description|default('No description provided') }}</td>
+                                <td>{{ forum.minRole.name|default('No role required') }}</td>
+                                <td>{{ forum.subforum.name|default('n/a') }}</td>
+                                <td><a class="btn btn-warning btn-sm" href="{{ path('admin_forum_edit', {category: category.id, forum: forum.id}) }}"><i class="fa fa-edit"></i></a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endfor %}
+
+
+        </div>
+    </div>
+
+{% endblock %}

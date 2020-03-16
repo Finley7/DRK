@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ forum.name }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="category">
+                <div class="title">
+                    <a href="{{ path('home') }}"><i class="fa fa-home"></i></a>
+                    <i class="small-breadcrumb fa fa-arrow-right"></i> <a href="{{ path('category_index', {categoryName: forum.category.slug}) }}">{{ forum.category.name }}</a>
+                    <i class="small-breadcrumb fa fa-arrow-right"></i> {{ forum.name }}
+                </div>
+                <div class="forum-items">
+                    {% for thread in forum.threads %}
+
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

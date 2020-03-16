@@ -1,0 +1,5 @@
+<a href="{{ path('admin_category_index') }}"><i class="fa fa-long-arrow-left"></i> {{ 'Back to summary'|trans }}</a>
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-success">{{ button_label|default('Save category') }}</button>
+{{ form_end(form) }}

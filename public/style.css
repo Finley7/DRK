@@ -1,0 +1,105 @@
+body, html {
+  background: url(bg.png); }
+
+.form-control:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #24599a;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 148, 50, 0.25); }
+
+header {
+  background: #1f4d85;
+  height: 150px;
+  padding: 25px 0; }
+
+main {
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1); }
+
+.required:after {
+  content: ' *';
+  color: red; }
+
+.header {
+  color: #fff;
+  border-radius: 2px 2px 0px 0px;
+  padding: 20px; }
+
+.body {
+  background: #fbfbfb; }
+
+.logo {
+  font-size: 25px;
+  font-weight: bold;
+  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.3);
+  color: #b5cfee; }
+
+.small-breadcrumb {
+  font-size: 12px;
+  vertical-align: middle;
+  padding: 0 10px; }
+
+h1, h2, h3, h4, h5 {
+  color: #1f4d85; }
+
+.login-content {
+  margin: 30px auto; }
+
+.login-card {
+  max-width: 500px; }
+
+.navigation {
+  margin: 15px 0;
+  padding: 0;
+  list-style-type: none;
+  float: right; }
+  .navigation li {
+    display: inline-block; }
+    .navigation li:hover {
+      background: #f3f7fc;
+      border-radius: 5px; }
+    .navigation li a {
+      color: #fff;
+      text-transform: uppercase;
+      font-weight: bold;
+      padding: 10px; }
+      .navigation li a:hover {
+        color: #15355c;
+        text-decoration: none; }
+
+.card-block > .forum-row:first-of-type {
+  border-top: 0; }
+
+.avatar {
+  border: 5px solid #eee;
+  width: 125px;
+  height: 125px; }
+
+.category .title {
+  font-size: 18px;
+  padding: 10px;
+  color: #1f4d85;
+  font-weight: bold;
+  border-bottom: 1px solid #1f4d85; }
+  .category .title a {
+    color: #1f4d85; }
+.category .forum {
+  margin: 10px 5px;
+  padding: 10px 5px;
+  vertical-align: middle; }
+  .category .forum .forum-icon {
+    text-align: center; }
+    .category .forum .forum-icon i {
+      font-size: 40px;
+      color: #1f4d85; }
+  .category .forum .forum-title {
+    font-weight: bold;
+    font-size: 16px; }
+    .category .forum .forum-title a {
+      color: #000; }
+  .category .forum .forum-description {
+    font-size: 13px; }
+  .category .forum .last-thread {
+    font-size: 14px; }
+
+/*# sourceMappingURL=style.css.map */

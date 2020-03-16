@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+        <link rel="stylesheet" href="{{ asset('style.css') }}">
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+    <header>
+        <div class="container">
+            <div class="row bottom-border header">
+                <div class="col-lg-1">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <span class="nav-link logo">DRK</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-11">
+                    <ul class="navigation">
+                        <li class="navigation-item"><a href="{{ path('home') }}"><i class="fa fa-home"></i> {{ 'Home'|trans }}</a></li>
+                        <li class="navigation-item"><a href="#"><i class="fa fa-users"></i> {{ 'Team'|trans }}</a></li>
+                        <li class="navigation-item"><a href="#"><i class="fa fa-search"></i> {{ 'Search'|trans }}</a></li>
+                        {% if app.user != null %}
+                            <li class="navigation-item"><a href="#"><i class="fa fa-user"></i> {{ app.user.name }}</a></li>
+                            {% if is_granted('view_mcp_menu') %}
+                                <li class="navigation-item"><a href="{{ path('admin_home') }}"><i class="fa fa-bolt"></i> {{ 'Management'|trans }}</a></li>
+                            {% endif %}
+                        {% else %}
+                            <li class="navigation-item"><a href="{{ path('security_login') }}"><i class="fa fa-key"></i> {{ 'Log in'|trans }}</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="container">
+        <div class="row body">
+            <div class="col-lg-12">
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }} mt-3">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

@@ -1,0 +1,22 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    {% if category.name != null %}
+                    <legend>{{ 'Manage forum in "0"'|trans([category.name]) }}</legend>
+                        {% else %}
+                            <legend>{{ 'Create a new forum'|trans }}</legend>
+                    {% endif %}
+                    <a href="{{ path('admin_category_index') }}"><i class="fa fa-long-arrow-left"></i> {{ 'Back to summary'|trans }}</a>
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <button class="btn btn-success">{{ button_label|default('Save forum') }}</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

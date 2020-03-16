@@ -1,0 +1,40 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <legend>{{ 'Ban management'|trans }} <a class="btn btn-success pull-right"
+                                           href="{{ path('admin_ban_create') }}"><i
+                            class="fa fa-plus"></i> {{ 'Add ban'|trans }}</a></legend>
+            {#            <small class="help-text">{{ 'Here you can manage your categories or sections that forums will be added to'|trans }}</small>#}
+            <hr>
+            <div class="card">
+            <table class="table data-table table-hover table-outline table-vcenter text-nowrap card-table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>{{ 'User'|trans }}</th>
+                    <th>{{ 'Expires'|trans }}</th>
+                    <th>{{ 'Created'|trans }}</th>
+                    <th>{{ 'Reason'|trans }}</th>
+                    <th>{{ 'Actions'|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for ban in bans %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ ban.receiver.name }}</td>
+                        <td>{{ ban.expires|date('d-m-Y H:i') }}</td>
+                        <td>{{ ban.created|date('d-m-Y H:i') }}</td>
+                        <td>{{ ban.reason }}</td>
+                        <td><a class="btn btn-warning btn-sm" href="{{ path('admin_ban_edit', {ban: ban.id}) }}"><i class="fa fa-edit"></i></a></td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

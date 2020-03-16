@@ -1,0 +1,160 @@
+$baseColor: #1f4d85;
+$grayColor: #eeeeee;
+body, html {
+    background: url(bg.png);
+}
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: lighten($baseColor, 5%);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,148,50,.25);
+}
+header {
+    background: $baseColor;
+    height: 150px;
+    padding: 25px 0;
+}
+main {
+    box-shadow: 0px 5px 5px rgba(0,0,0,.1);
+}
+.required:after {
+    content: ' *';
+    color: red;
+}
+.header {
+    //background: lighten($baseColor, 10%);
+    color: #fff;
+    border-radius: 2px 2px 0px 0px;
+    padding: 20px;
+
+}
+.body {
+    background: lighten($grayColor, 5%);
+}
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    text-shadow: -1px -1px 1px rgba(0,0,0,0.3);
+    color: lighten($baseColor, 50%);
+}
+.small-breadcrumb {
+    font-size: 12px;
+    vertical-align: middle;
+    padding: 0 10px;
+}
+h1, h2, h3, h4, h5 {
+    color: $baseColor;
+}
+.login-content {
+    margin: 30px auto;
+}
+.login-card {
+    max-width: 500px;
+}
+.navigation {
+    margin: 15px 0;
+    padding: 0;
+    list-style-type: none;
+    float:right;
+
+    li {
+        display: inline-block;
+
+        &:hover {
+            background: lighten($baseColor, 65%);
+            border-radius: 5px;
+        }
+
+        a {
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: bold;
+            padding: 10px;
+
+            &:hover {
+                color: darken($baseColor, 10%);
+                text-decoration: none;
+            }
+        }
+    }
+}
+//.bottom-border {
+//    border-bottom: 3px solid $baseColor;
+//}
+.card-block > .forum-row:first-of-type {
+    border-top: 0;
+}
+.avatar {
+    border: 5px solid #eee;
+    width:125px;
+    height:125px;
+}
+
+//.forum-row {
+//    padding-bottom: 10px;
+//    padding-top: 5px;
+//    border-top: 1px solid #ddd;
+//}
+//
+//.forum-icon, .forum-icon-read, .forum-icon-unread {
+//    color: #5183b2;
+//    font-size: 30px;
+//    margin: 0px auto;
+//    display: inline-block;
+//    line-height: 50px;
+//    width: 50px;
+//    height: 50px;
+//    text-align: center;
+//    vertical-align: bottom
+//}
+
+.category {
+
+    //border-bottom: 1px solid $grayColor;
+
+    .title {
+        font-size: 18px;
+        padding: 10px;
+        color: $baseColor;
+        font-weight: bold;
+        border-bottom: 1px solid $baseColor;
+
+        a {
+            color: $baseColor;
+        }
+    }
+
+    .forum {
+
+        margin: 10px 5px;
+        padding: 10px 5px;
+        //border-bottom: 1px solid $grayColor;
+        vertical-align: middle;
+
+        .forum-icon {
+            text-align: center;
+
+
+            i {
+                font-size: 40px;
+                color: $baseColor;
+
+            }
+        }
+        .forum-title {
+            font-weight: bold;
+            font-size:16px;
+
+            a {
+                color :#000;
+            }
+        }
+        .forum-description {
+            font-size: 13px;
+        }
+        .last-thread {
+            font-size: 14px;
+        }
+    }
+}
