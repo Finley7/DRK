@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ForumController extends DRKBaseController
 {
     /**
-     * @Route("/{categoryName}/{forumName}", name="forum_index")
+     * @Route("/forum/{categoryName}/{forumName}", name="forum_index")
      * @param string $categoryName
      * @param string $forumName
      * @return Response

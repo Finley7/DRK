@@ -1,63 +1,459 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-        <link rel="stylesheet" href="{{ asset('style.css') }}">
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-    <header>
-        <div class="container">
-            <div class="row bottom-border header">
-                <div class="col-lg-1">
-                    <ul class="nav">
-                        <li class="nav-item">
-                            <span class="nav-link logo">DRK</span>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('base_gallery/css/raxos_main.css') }}">
+    <link rel="stylesheet" href="{{ asset('base_gallery/css/uikit.css') }}" />
+    <script src="{{ asset('base_gallery/js/uikit.min.js') }}"></script>
+    <script src="{{ asset('base_gallery/js/uikit-icons.min.js') }}"></script>
+    <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.8.2/css/pro.min.css">
+    {% block stylesheets %}{% endblock %}
+</head>
+
+<body>
+<div id="modal-full" class="uk-modal-full uk-modal" uk-modal>
+    <div class="uk-modal-dialog uk-flex uk-flex-center uk-flex-middle" uk-height-viewport>
+        <button class="uk-modal-close-full" type="button" uk-close></button>
+        <form class="uk-search uk-search-large">
+            <input class="uk-search-input uk-text-center" type="search" placeholder="Zoeken..." autofocus>
+        </form>
+    </div>
+</div>
+
+<header>
+    <div class="raxos_header">
+        <div class="uk-container">
+            <nav class="uk-navbar-container raxos_white" uk-navbar>
+                <div class="uk-navbar-left">
+
+                    <a class="uk-navbar-item uk-logo raxos_no_padding raxos_logo" href="#">
+                        Rax<i class="fas fa-meteor raxos_logo_icon"></i>s
+                    </a>
+
+                </div>
+
+                <div class="uk-navbar-center uk-visible@m">
+
+                    <ul class="uk-navbar-nav">
+
+                        <li>
+                            <a href="#">Community</a>
+                            <div class="uk-navbar-dropdown">
+                                <ul class="uk-nav uk-navbar-dropdown-nav">
+                                    <li class="uk-active"><a href="#">Active</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="uk-active">
+                            <a href="#">Forum</a>
+                            <div class="uk-navbar-dropdown">
+                                <ul class="uk-nav uk-navbar-dropdown-nav">
+                                    <li class="uk-active"><a href="#">Active</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#">Gebruikers</a>
+                            <div class="uk-navbar-dropdown">
+                                <ul class="uk-nav uk-navbar-dropdown-nav">
+                                    <li><a href="#">Gebruikersoverzicht</a></li>
+                                    <li><a href="#">Nieuwe gebruikers</a></li>
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#">Teamleden</a></li>
+                                </ul>
+                            </div>
                         </li>
                     </ul>
+
                 </div>
-                <div class="col-lg-11">
-                    <ul class="navigation">
-                        <li class="navigation-item"><a href="{{ path('home') }}"><i class="fa fa-home"></i> {{ 'Home'|trans }}</a></li>
-                        <li class="navigation-item"><a href="#"><i class="fa fa-users"></i> {{ 'Team'|trans }}</a></li>
-                        <li class="navigation-item"><a href="#"><i class="fa fa-search"></i> {{ 'Search'|trans }}</a></li>
-                        {% if app.user != null %}
-                            <li class="navigation-item"><a href="#"><i class="fa fa-user"></i> {{ app.user.name }}</a></li>
-                            {% if is_granted('view_mcp_menu') %}
-                                <li class="navigation-item"><a href="{{ path('admin_home') }}"><i class="fa fa-bolt"></i> {{ 'Management'|trans }}</a></li>
-                            {% endif %}
+
+                <div class="uk-navbar-right">
+
+                    <ul class="uk-navbar-nav">
+
+                        {% if app.user %}
+                        <li class="uk-visible@m">
+                            <a href="#">
+                                <div class="avatar_header">
+                                    <img src="base_gallery/img/avatars/mitchel.png" uk-tooltip="title:Mitchel; pos: bottom" title="" aria-expanded="false">
+                                </div>
+                                Mitchel
+                                <i class="fal fa-chevron-down raxos_icon_header"></i>
+                            </a>
+
+                            <div class="uk-navbar-dropdown raxos_width" >
+                                <ul class="uk-nav uk-navbar-dropdown-nav">
+                                    <li><a href="#"><i class="fal fa-user fa-fw raxos_menu_icon"></i> Bekijk profiel</a></li>
+                                    <li><a href="#"><i class="fal fa-user-edit fa-fw raxos_menu_icon"></i> Verander profiel</a></li>
+                                    <li><a href="#"><i class="fal fa-user-circle fa-fw raxos_menu_icon"></i> Verander profielfoto</a></li>
+                                    <li><a href="#"><i class="fal fa-image fa-fw raxos_menu_icon"></i> Verander profielbanner</a></li>
+
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#"><i class="fal fa-envelope fa-fw raxos_menu_icon"></i> Verander e-mailadres</a></li>
+                                    <li><a href="#"><i class="fal fa-key fa-fw raxos_menu_icon"></i> Verander wachtwoord</a></li>
+
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#"><i class="fal fa-network-wired fa-fw raxos_menu_icon"></i> Sessies beheren</a></li>
+                                    <li><a href="#"><i class="fal fa-file-import fa-fw raxos_menu_icon"></i> Uploads beheren</a></li>
+
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="#"><i class="fal fa-cog fa-fw raxos_menu_icon"></i> Instellingen</a></li>
+                                    <li><a href="#"><i class="fal fa-sign-out-alt fa-fw raxos_menu_icon"></i> Uitloggen</a></li>
+                                </ul>
+                            </div>
+                        </li>
                         {% else %}
-                            <li class="navigation-item"><a href="{{ path('security_login') }}"><i class="fa fa-key"></i> {{ 'Log in'|trans }}</a></li>
+                            <li>
+                                <a href="#">{{ 'Sign in/Create account'|trans }}</a>
+                            </li>
                         {% endif %}
+
+                        <li class="uk-hidden@m">
+                            <a href="#offcanvas-slide" uk-toggle><span uk-icon="icon: menu; ratio: 1.0" class="icon-nav uk-icon-button"></span></a>
+
+                            <div id="offcanvas-slide" uk-offcanvas="overlay: true; flip: true; mode: reveal;" uk-offcanvas>
+                                <div class="uk-offcanvas-bar">
+
+                                    <button class="uk-offcanvas-close" type="button" uk-close></button>
+
+                                    <h3>DRK</h3>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    </p>
+
+                                    <ul class="uk-nav uk-nav-default">
+                                        <li class="uk-nav-header">Raxos</li>
+                                        <li><a href="#">Forums</a></li>
+                                        <li><a href="#">Downloads</a></li>
+                                        <li><a href="#">Team</a></li>
+
+                                        <li class="uk-nav-divider"></li>
+                                        <li><a href="#">Uitloggen</a></li>
+                                    </ul>
+
+                                    <p style="margin-top: 15%;">
+                                        Copyright &copy; <strong>Raxos</strong> 2020.<br/>
+                                        <small>Aangedreven door <strong>Raxos 1.0</strong>.</small>
+                                    </p>
+
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+<div id="sub_header">
+    <div class="uk-container">
+
+
+        <nav class="uk-navbar-container raxos_white" uk-navbar>
+
+            <div class="uk-navbar-left raxos_margin20">
+
+                <ul class="uk-breadcrumb">
+                    <li><a href="#">Forumoverzicht</a></li>
+                    <li><span>Pagina</span></li>
+                </ul>
+
+            </div>
+
+            <div class="uk-navbar-right uk-visible@m">
+
+                <ul class="uk-navbar-nav">
+                    <!--<li>
+                      <a href="#" class="a-subhead">Inloggen</a>
+                    </li>
+                    <li>
+                      <a href="#" class="a-subhead">Maak een account</a>
+                    </li>-->
+                    <li>
+                        <a href="#modal-full" uk-toggle uk-tooltip="title: Zoeken; pos: bottom"><i class="fal fa-search raxos_icon fa-fw"></i></a>
+                    </li>
+
+                    <li>
+                        <a href="#" uk-tooltip="title: Nachtmodus; pos: bottom"><i class="fal fa-moon raxos_icon fa-fw"></i></a>
+                    </li>
+
+                    <li>
+                        <a href="#offcanvas-meldingen" uk-toggle uk-tooltip="title: Meldingen; pos: bottom"><i class="fal fa-bell raxos_icon fa-fw"></i>
+                            <span class="uk-label uk-label-danger">50</span></a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+    </div>
+</div>
+<div id="content">
+    <div class="uk-container">
+
+        <div class="uk-child-width-expand@m uk-grid" uk-grid="">
+            <!-- LEFT -->
+            <div class="raxos_forum_list">
+                {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                <!-- NOTICES -->
+                <div class="uk-card raxos_notices">
+                    <div class="raxos_notices_title {{ label }}">
+                        <div class="left_side">
+                            <i class="fas fa-exclamation-circle fa-fw"></i>
+                            {{ message }}
+                        </div>
+
+                        <div class="right_side">
+                            <i class="fal fa-times"></i>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endfor %}
+
+                {% block body %}{% endblock %}
+
+
+            </div>
+            <!-- END LEFT -->
+
+            <!-- RIGHT -->
+            <div class="alpha-forum-sidebar uk-first-column">
+
+                <!-- CARD -->
+                <div class="uk-card raxos_forum_card">
+                    <div class="raxos_forum_card_title dark">
+                        <div class="left_side">
+                            Recente forumactiviteiten
+                        </div>
+
+                        <div class="right_side">
+                            <i class="far fa-sync-alt" uk-tooltip="title: Herladen; pos: bottom"></i>
+                        </div>
+                    </div>
+                    <div class="raxos_forum_card_inner">
+
+                        <div class="raxos_recent_thread">
+                            <div class="raxos_userinfo">
+                                <img src="base_gallery/img/avatars/mitchel.png" class="raxos_avatar" uk-img="" uk-tooltip="title:Mitchel; pos: bottom" title="" aria-expanded="false">
+                                <a href="#" class="role beheer">Mitchel</a>
+                                <small>10 seconde geleden</small>
+                            </div>
+                            <div class="posttitle">
+                                <a href="#">Lorem ipsum dolor sit amet.</a>
+                            </div>
+                            <div class="postsection">
+                                <a href="#">Stel jezelf voor</a>
+                            </div>
+
+                            <div class="postcontent">
+                                Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                            </div>
+                        </div>
+
+                        <div class="raxos_recent_thread">
+                            <div class="raxos_userinfo">
+                                <div class="raxos_avatar">
+                                    <p data-letters="J" uk-tooltip="title:Jeroen; pos: bottom"  title="" aria-expanded="false"></p>
+                                </div>
+                                <a href="#" class="role assbeheer">Jeroen</a>
+                                <small>2 minuten geleden</small>
+                            </div>
+                            <div class="posttitle">
+                                <a href="#">Lorem ipsum dolor sit amet.</a>
+                            </div>
+                            <div class="postsection">
+                                <a href="#">Stel jezelf voor</a>
+                            </div>
+
+                            <div class="postcontent">
+                                Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                            </div>
+                        </div>
+
+                        <div class="raxos_recent_thread">
+                            <div class="raxos_userinfo">
+                                <img src="base_gallery/img/avatars/naam.png" class="raxos_avatar" uk-img="" uk-tooltip="title:Mitchel; pos: bottom" title="" aria-expanded="false">
+                                <a href="#" class="role geregistreerd">Natalia Raikova</a>
+                                <small>1 uur geleden</small>
+                            </div>
+                            <div class="posttitle">
+                                <a href="#">Lorem ipsum dolor sit amet</a>
+                            </div>
+                            <div class="postsection">
+                                <a href="#">Stel jezelf voor</a>
+                            </div>
+
+                            <div class="postcontent">
+                                Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- END CARD -->
+
+                <!-- CARD -->
+                <!--<div class="uk-card raxos_forum_card">
+                  <div class="raxos_forum_card_title dark">
+                    <div class="left_side">
+                      Top 3 groepen
+                    </div>
+                    <div class="right_side">
+                      <small><a href="#">Bekijk alle groepen</a></small>
+                    </div>
+                  </div>
+                  <div class="raxos_forum_card_inner">
+                    <table class="uk-table uk-table-striped">
+                        <tbody>
+                            <tr>
+                                <td class="uk-text-middle"><img src="https://indebuurt.nl/vlaardingen/wp-content/uploads/2019/11/poes-athena-1.jpg" class="raxos_group_picture uk-preserve-width"></td>
+                                <td class="uk-text-middle raxos_group_a_groupname" ><a href="#">Groepsnaam</a></td>
+                                <td class="uk-text-middle raxos_group_a"><a href="#" class="role beheer">Mitchel</a></td>
+                                <td class="uk-text-middle uk-text-center" uk-tooltip="title: Aantal leden; pos: bottom"> <i class="fal fa-users fa-fw"></i><br/>500</td>
+                            </tr>
+                            <tr>
+                                <td class="uk-text-middle"><img src="https://www.dekennisvannu.nl/thumbs/i/2000/mod_media_image/2704.w600.r16-9.c3819c2.jpg" class="raxos_group_picture uk-preserve-width"></td>
+                                <td class="uk-text-middle raxos_group_a_groupname" ><a href="#">Katties</a></td>
+                                <td class="uk-text-middle raxos_group_a"><a href="#" class="role assbeheer">Jeroen</a></td>
+                                <td class="uk-text-middle uk-text-center" uk-tooltip="title: Aantal leden; pos: bottom"> <i class="fal fa-users fa-fw"></i><br/>475</td>
+                            </tr>
+                            <tr>
+                                <td class="uk-text-middle"><img src="https://www.colora.nl/media/catalog/product/cache/5/image/620x/17f82f742ffe127f42dca9de82fb58b1/7/2/72009-1/kip-30.png" class="raxos_group_picture uk-preserve-width"></td>
+                                <td class="uk-text-middle raxos_group_a_groupname" ><a href="#">Kippenbende</a></td>
+                                <td class="uk-text-middle raxos_group_a"><a href="#" class="role geregistreerd">Navi</a></td>
+                                <td class="uk-text-middle uk-text-center" uk-tooltip="title: Aantal leden; pos: bottom"> <i class="fal fa-users fa-fw"></i><br/>50</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                  </div>
+                </div>-->
+                <!-- END CARD -->
+
+                <!-- CARD -->
+                <div class="uk-card raxos_forum_card">
+                    <div class="raxos_forum_card_title dark">
+                        <div class="left_side">
+                            Momenteel actief
+                        </div>
+
+                        <div class="right_side">
+                            <small>5 leden en 2 gasten</small>
+                        </div>
+                    </div>
+
+                    <div class="raxos_forum_card_inner padding15 uk-text-center">
+                        <p data-letters="J" uk-tooltip="title:Jeroen; pos: bottom" title="" aria-expanded="false"></p>
+                        <img src="base_gallery/img/avatars/mitchel.png" uk-img="" uk-tooltip="title:Mitchel; pos: bottom" title="" aria-expanded="false">
+                        <p data-letters="A" uk-tooltip="title:Jeroen; pos: bottom" title="" aria-expanded="false" class="cyan"></p>
+                        <p data-letters="B" uk-tooltip="title:Jeroen; pos: bottom" title="" aria-expanded="false" class="red"></p>
+                        <p data-letters="C" uk-tooltip="title:Jeroen; pos: bottom" title="" aria-expanded="false"class="orange"></p>
+                        <p data-letters="D" uk-tooltip="title:Jeroen; pos: bottom" title="" aria-expanded="false" class="blue"></p>
+                        <p data-letters="E" uk-tooltip="title:Jeroen; pos: bottom" title="" aria-expanded="false" class="green"></p>
+                        <p data-letters="F" uk-tooltip="title:Jeroen; pos: bottom" title="" aria-expanded="false" class="purple"></p>
+                    </div>
+
+                </div>
+                <!-- END CARD -->
+
+                <!-- CARD -->
+                <div class="uk-card raxos_forum_card">
+                    <div class="raxos_forum_card_title dark">
+                        <div class="left_side">
+                            Forumstatistieken
+                        </div>
+
+                        <div class="right_side">
+                            <small><a href="#">Volledige lijst met statistieken</a></small>
+                        </div>
+                    </div>
+
+                    <div class="raxos_forum_card_inner padding15">
+                        <div class="uk-grid-small" uk-grid>
+                            <div class="uk-width-expand" uk-leader="fill: "><strong><i class="far fa-users raxos_icon_stats fa-fw"></i> Leden</strong></div>
+                            <div>50</div>
+                        </div>
+
+                        <div class="uk-grid-small" uk-grid>
+                            <div class="uk-width-expand" uk-leader="fill: "><strong><i class="far fa-users-class raxos_icon_stats fa-fw"></i> Gebruikersgroepen</strong></div>
+                            <div>6</div>
+                        </div>
+
+                        <div class="uk-grid-small" uk-grid>
+                            <div class="uk-width-expand" uk-leader="fill: "><strong><i class="far fa-comment-alt-lines raxos_icon_stats fa-fw"></i>Topics</strong></div>
+                            <div>1.000</div>
+                        </div>
+
+                        <div class="uk-grid-small" uk-grid>
+                            <div class="uk-width-expand" uk-leader="fill: "><strong><i class="far fa-comments-alt raxos_icon_stats fa-fw"></i> Berichten</strong></div>
+                            <div>2.876</div>
+                        </div>
+
+                        <div class="uk-grid-small" uk-grid>
+                            <div class="uk-width-expand" uk-leader="fill: "><strong><i class="far fa-comment-alt-smile raxos_icon_stats fa-fw"></i> Chatbox berichten</strong></div>
+                            <div>99</div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- END CARD -->
+
+            </div>
+            <!-- END RIGHT -->
+
+
+        </div>
+
+    </div>
+</div>
+<!-- END CONTENT -->
+
+<footer>
+    <div class="uk-container">
+        <div class="uk-grid-large " uk-grid>
+            <div class="uk-width-1-2@m">
+                <a class="uk-logo raxos_no_padding raxos_logo uk-text-left" href="#">
+                    Rax<i class="fas fa-meteor raxos_logo_icon"></i>s
+                </a>
+
+                Raxos, het forum project voor bloeiende, levendige en unieke community's.
+                Het digitale aanstuur punt van jouw forum op het internet dat onderscheid en verschil maakt met alle al bestaande forum projecten.
+
+                <!--<div class="powered">
+                  Raxos &copy; 2020 word aangedreven door <strong>Raxos 1.0</strong>.<br/> Bedacht en uitgevoerd door <strong>Jeroen</strong> en <strong>Mitchel</strong>.
+                </div>-->
+            </div>
+            <div class="uk-width-1-4@s uk-text-middle">
+                <div>
+                    <ul class="uk-nav uk-nav-default">
+                        <li class="uk-nav-header">Links</li>
+                        <li><a href="#">De forum regels</a></li>
+                        <li><a href="#">De algemene voorwaarden</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="uk-width-1-4@s">
+                <div>
+                    <ul class="uk-nav uk-nav-default">
+                        <li class="uk-nav-header">Contact</li>
+                        <li><a href="#">E-mail: mail@raxor.dev</a></li>
+                        <li><a href="#">Twitter: @Raxosdev</a></li>
                     </ul>
                 </div>
             </div>
         </div>
-    </header>
-    <main class="container">
-        <div class="row body">
-            <div class="col-lg-12">
-                {% for label, messages in app.flashes %}
-                    {% for message in messages %}
-                        <div class="alert alert-{{ label }} mt-3">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                {% endfor %}
-                {% block body %}{% endblock %}
-            </div>
-        </div>
+    </div>
+</footer>
+</body>
 
-    </main>
-
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
-        {% block javascripts %}{% endblock %}
-    </body>
 </html>
