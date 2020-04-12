@@ -20,6 +20,7 @@ class User implements UserInterface
         $this->avatar = 'default-avatar.png';
         $this->threads = new ArrayCollection();
         $this->replies = new ArrayCollection();
+        $this->sessions = new ArrayCollection();
     }
     /**
      * @ORM\Id()
@@ -108,6 +109,11 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Reply", mappedBy="author")
      */
     private $replies;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="user", orphanRemoval=true)
+     */
+    private $sessions;
 
     public function getId(): ?int
     {
@@ -247,6 +253,18 @@ class User implements UserInterface
         $this->primaryRole = $primaryRole;
 
         return $this;
+    }
+
+    public function getPermissions() {
+        $_permissions = [];
+
+        foreach($this->getUserRoles() as $role) {
+            foreach($role->getPermissions() as $permission) {
+                $_permissions[] = $permission->getName();
+            }
+        }
+
+        return $_permissions;
     }
 
     public function getDob(): ?\DateTimeInterface
@@ -427,6 +445,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($reply->getAuthor() === $this) {
                 $reply->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Session[]
+     */
+    public function getSessions(): Collection
+    {
+        return $this->sessions;
+    }
+
+    public function addSession(Session $session): self
+    {
+        if (!$this->sessions->contains($session)) {
+            $this->sessions[] = $session;
+            $session->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSession(Session $session): self
+    {
+        if ($this->sessions->contains($session)) {
+            $this->sessions->removeElement($session);
+            // set the owning side to null (unless already changed)
+            if ($session->getUser() === $this) {
+                $session->setUser(null);
             }
         }
 

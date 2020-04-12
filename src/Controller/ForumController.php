@@ -22,8 +22,6 @@ class ForumController extends DRKBaseController
         $forum = $this->getDoctrine()->getRepository(Forum::class)
             ->findOneBy(['slug' => $forumName]);
 
-        return $this->render('forum/index.html.twig', [
-            'forum' => $forum
-        ]);
+        return $this->createApiResponse($forum);
     }
 }

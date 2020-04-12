@@ -71,6 +71,10 @@ class Forum
         $this->threads = new ArrayCollection();
     }
 
+    public function serialize() {
+        return serialize($this);
+    }
+
     public function getId(): ?int
     {
         return $this->id;

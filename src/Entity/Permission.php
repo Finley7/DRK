@@ -38,6 +38,16 @@ class Permission
         $this->userRoles = new ArrayCollection();
     }
 
+    public function serialize() {
+        $permissionObj = new \stdClass();
+
+        $permissionObj->id = $this->getId();
+        $permissionObj->name = $this->getName();
+        $permissionObj->description = $this->getDescription();
+
+        return $permissionObj;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
